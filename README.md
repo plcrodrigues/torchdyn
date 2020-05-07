@@ -10,7 +10,9 @@ A PyTorch based library for all things neural differential equations. Maintained
 
 `cd torchdyn`
 
-`python setup.py install`
+`pip install -r requirements.txt`
+
+`python setup.py develop`
 
 #### Documentation 
 https://torchdyn.readthedocs.io/
