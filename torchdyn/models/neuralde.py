@@ -5,11 +5,6 @@ import pytorch_lightning as pl
 from ..adjoint import Adjoint
 from .._internals import compat_check
 
-defaults = {'type':'classic', 'controlled':False, 'augment':False, # model
-            'backprop_style':'autograd', 'cost':None, # training 
-            's_span':torch.linspace(0, 1, 2), 'solver':'rk4', 'atol':1e-3, 'rtol':1e-4, # solver params
-            'return_traj':False} 
-
 class NeuralDE(pl.LightningModule):
     """General Neural DE template
 
@@ -20,6 +15,18 @@ class NeuralDE(pl.LightningModule):
     """
     def __init__(self, func:nn.Module, settings:dict):
         super().__init__()
+
+        defaults = {'type':'classic', 
+                    'controlled':False, 
+                    'augment':False, # model
+                    'backprop_style':'autograd', 
+                    'cost':None, # training 
+                    's_span':torch.linspace(0, 1, 2), 
+                    'solver':'rk4', 
+                    'atol':1e-3, 
+                    'rtol':1e-4, # solver params
+                    'return_traj':False} 
+
         defaults.update(settings)
         compat_check(defaults)
         self.st = defaults ; self.defunc, self.defunc.func_type = func, self.st['type']
